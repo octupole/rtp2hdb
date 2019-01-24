@@ -37,6 +37,7 @@ MyToken::MyToken(string y,regex re){
 	this->push_back(tmp);
 	try{
 		if(this->size() != label.size()) throw "Why the numbers of substrings and tokens are not identical?";
+
 	}
 	catch(const char * s){
 		std::cout << s << "\n";

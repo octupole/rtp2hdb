@@ -20,8 +20,8 @@ using namespace std;
 #include <iterator>
 #include <string>
 #include "Residue.h"
+#include "Tools.h"
 using std::string;
-using namespace std;
 
 int main(int ac, char* av[])
 {
@@ -80,14 +80,18 @@ int main(int ac, char* av[])
     stringstream ss;
     ss<< ifs.rdbuf();
     regex re("\\[ ([A-Z][A-Z0-9]*) \\]");
+
     string sstr=ss.str();
-    MyToken tok(sstr,re);
-    for(unsigned int i=0;i<tok.size();i++){
-    	Residue g(tok.GetLabel(i),tok[i]);
-    	g.error_report();
-    	test.push_back(g);
-    	ofs << g ;
-    	if(verbose) cout << g;
+    vector<string> sstrs=mySplit(ss.str());
+    for(auto sstr: sstrs){
+    	MyToken tok(sstr,re);
+    	for(unsigned int i=0;i<tok.size();i++){
+    		Residue g(tok.GetLabel(i),tok[i]);
+    		g.error_report();
+    		test.push_back(g);
+    		ofs << g ;
+    		if(verbose) cout << g;
+    	}
     }
     cout << "Gromacs hydrogen bond file \"" << fileO << "\" has been created \n";
     return 0;

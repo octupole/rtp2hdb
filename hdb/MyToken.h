@@ -15,7 +15,8 @@ using namespace boost;
 
 using  std::string;
 using std::vector;
-
+using std::cout;
+using std::endl;
 class MyToken: public vector<string> {
 	vector<string> label;
 public:
