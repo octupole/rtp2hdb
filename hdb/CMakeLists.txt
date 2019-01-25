@@ -6,6 +6,6 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
 endif()
 
-set(SOURCE MyToken.cpp Residue.cpp Tools.cpp)
+set(SOURCE MyToken.cpp Residue.cpp)
 
 add_library(hdb STATIC ${SOURCE})

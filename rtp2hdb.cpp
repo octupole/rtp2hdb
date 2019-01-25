@@ -7,9 +7,6 @@
 //============================================================================
 
 #include <iostream>
-#include <boost/program_options/options_description.hpp>
-#include <boost/program_options/parsers.hpp>
-#include <boost/program_options/variables_map.hpp>
 #include <boost/program_options.hpp>
 #include "MyToken.h"
 
@@ -20,7 +17,7 @@ using namespace std;
 #include <iterator>
 #include <string>
 #include "Residue.h"
-#include "Tools.h"
+#include "myTools.h"
 using std::string;
 
 int main(int ac, char* av[])
@@ -28,14 +25,13 @@ int main(int ac, char* av[])
     string fileI,fileO;
     bool verbose=false;
     bool force=false;
-    vector<Residue> test;
     try {
         po::options_description desc("Allowed options:");
         po::variables_map vm;
         desc.add_options()
             ("help,h", "produce help message")
             ("verbose,v", "verbose mode")
-            ("force","force to find hydrogens in protein residues and polymer units. Results will be wrong "
+            ("force,f","force to find hydrogens in protein residues and polymer units. Results will be wrong "
             		"for those hydrogens. It might be wrong for others.")
             ("rtp,i", po::value<string>(&fileI),"rtp file to process")
             ("hdb,o", po::value<string>(&fileO),"hdb file to generate")
@@ -83,12 +79,13 @@ int main(int ac, char* av[])
 
     string sstr=ss.str();
     vector<string> sstrs=mySplit(ss.str());
+	boost::smatch what;
+
     for(auto sstr: sstrs){
     	MyToken tok(sstr,re);
     	for(unsigned int i=0;i<tok.size();i++){
     		Residue g(tok.GetLabel(i),tok[i]);
     		g.error_report();
-    		test.push_back(g);
     		ofs << g ;
     		if(verbose) cout << g;
     	}

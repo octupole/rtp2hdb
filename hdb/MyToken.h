@@ -17,12 +17,15 @@ using  std::string;
 using std::vector;
 using std::cout;
 using std::endl;
-class MyToken: public vector<string> {
+class MyToken{
+	vector<string> vec;
 	vector<string> label;
 public:
 	MyToken();
 	MyToken(string y,regex sep);
 	string GetLabel(int i){return label.at(i);};
+	size_t size(){return vec.size();}
+	string & operator[](size_t o){return vec[o];}
 	virtual ~MyToken();
 };
 

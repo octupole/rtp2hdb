@@ -26,7 +26,7 @@ MyToken::MyToken(string y,regex re){
 
 		if(count++){
 			string tmp(start,what[0].first);
-			this->push_back(tmp);
+			vec.push_back(tmp);
 		}
 		start = what[0].second;
 		// update flags:
@@ -34,9 +34,9 @@ MyToken::MyToken(string y,regex re){
 		flags |= boost::match_not_bob;
 	}
 	string tmp(start,end);
-	this->push_back(tmp);
+	vec.push_back(tmp);
 	try{
-		if(this->size() != label.size()) throw "Why the numbers of substrings and tokens are not identical?";
+		if(vec.size() != label.size()) throw "Why the numbers of substrings and tokens are not identical?";
 
 	}
 	catch(const char * s){
@@ -46,7 +46,7 @@ MyToken::MyToken(string y,regex re){
 }
 
 MyToken::~MyToken() {
-	this->clear();
+	vec.clear();
 	label.clear();
 	// TODO Auto-generated destructor stub
 }
